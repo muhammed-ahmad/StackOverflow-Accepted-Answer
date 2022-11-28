@@ -60,6 +60,6 @@ a simple demo app that let u search StackOverflow for specific keyword, then it 
 -->
 
 # License & Copyright
-Copyright (c) 2022 **Muhammad-2021**
+Copyright (c) 2022 **Muhammad-Ahmad**
 
  [MIT License](LICENSE)
