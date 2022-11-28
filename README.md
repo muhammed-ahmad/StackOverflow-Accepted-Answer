@@ -1,5 +1,5 @@
 # StackOverflow Accepted Answer
-a simple demo app that let u search for a keyword then it retreive a list of StackOverflow accepted answers
+a simple demo app that let u search StackOverflow for specific keyword, then it display a list of questions and its accepted answers
 
 # features:
 - uses StackOverflow api to get data.
@@ -49,6 +49,7 @@ a simple demo app that let u search for a keyword then it retreive a list of Sta
 
 <br />
 
+<!--
 # TODO
 - add Testing
     - Unit Tests
@@ -56,8 +57,9 @@ a simple demo app that let u search for a keyword then it retreive a list of Sta
     - Mockito
 
 <br />
+-->
 
 # License & Copyright
-Copyright (c) 2021 **Muhammad-2021**
+Copyright (c) 2022 **Muhammad-2021**
 
  [MIT License](LICENSE)
