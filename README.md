@@ -1,10 +1,7 @@
 # StackOverflow Accepted Answer
 a simple demo app that let u search StackOverflow for specific keyword, then it display a list of questions and its accepted answers
 
-# please note:
-<span style="color:red;">
-this project is under developement
-</span>
+# please note that this project is still under developement
 
 <br />
 
