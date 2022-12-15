@@ -3,28 +3,32 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.falcon.stackoverflow.databinding.ActivityResultDetailBinding
 import com.falcon.stackoverflow.screens.common.BaseActivity
 import com.falcon.stackoverflow.screens.common.ImageLoader
+import com.falcon.stackoverflow.screens.results.ResultsListAdapter
 import com.falcon.stackoverflow.utils.Logger
+import com.falcon.stackoverflow.utils.UiUtils
 import javax.inject.Inject
 
 class ResultDetailActivity : BaseActivity() {
 
     val TAG: String = "ResultDetailActivity"
-    var resultId: String = ""
+    var questionId: Long = 0
     lateinit var binding: ActivityResultDetailBinding
+    lateinit var adapter: AnswersListAdapter
 
     @Inject lateinit var resultDetailViewModel: ResultDetailViewModel
     @Inject lateinit var imageLoader: ImageLoader
     @Inject lateinit var layoutInflator: LayoutInflater
 
     companion object {
-        const val RESULT_ID: String = "RESULT_ID"
-        fun start(fromActivity: AppCompatActivity, resultId: Long)
+        const val QUESTION_ID: String = "QUESTION_ID"
+        fun start(fromActivity: AppCompatActivity, questionId: Long)
         {
             val intent = Intent(fromActivity, ResultDetailActivity::class.java)
-            intent.putExtra(RESULT_ID, resultId)
+            intent.putExtra(QUESTION_ID, questionId)
             fromActivity.startActivity(intent)
         }
     }
@@ -36,25 +40,25 @@ class ResultDetailActivity : BaseActivity() {
         setContentView(binding.root)
         setSupportActionBar(binding.toolbar)
 
-        if(intent.hasExtra(RESULT_ID)) {
-            resultId = intent.getStringExtra(RESULT_ID)!!
+        if(intent.hasExtra(QUESTION_ID)) {
+            questionId = intent.getLongExtra(QUESTION_ID, 0)
         }
 
-        Logger.log( TAG, "onCreate: resultId: $resultId")
+        Logger.log( TAG, "onCreate: questionId: $questionId")
 
-//        if(!resultId.isEmpty()) {
-//            resultDetailViewModel.getResultDetailById(resultId, object :ResultDetailViewModel.ListenerForOne {
-//
-//                override fun onQuerySuccess(resultDetail: ResultDetail) {
-//                    if (resultDetail !=null){
-//                        imageLoader.loadImage(binding.userImg, Constants.imagesUsersUrl + resultDetail.imageUrl)
-//                        binding.nameTxt.setText(resultDetail.name)
-//                        binding.detailsTxt.setText(resultDetail.details)
-//                    }
-//                }
-//                override fun onQueryFailed(e: Throwable) {
-//                }
-//            })
-//        }
+        adapter = AnswersListAdapter(
+            this,
+            layoutInflator
+            )
+
+        binding.recyclerview.adapter = adapter
+        binding.recyclerview.layoutManager = LinearLayoutManager(this)
+
+        resultDetailViewModel.getQuestionData(questionId).observe(this, { resultDetail ->
+            binding.questionTitleTxt.text = UiUtils.fromHtml(resultDetail.questionItem.title)
+            binding.questionBodyTxt.text = UiUtils.fromHtml(resultDetail.questionItem.body)
+            adapter.setList(resultDetail.answerItems)
+        })
+
     }
 }

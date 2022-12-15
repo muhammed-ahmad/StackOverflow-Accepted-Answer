@@ -21,44 +21,55 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/toolbar">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_margin="6dp">
-
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:scaleType="fitXY"
-                android:adjustViewBounds="true"
-                android:id="@+id/userImg"
-                />
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/nameTxt"
                     style="@style/title_style"
                     android:padding="0dp"
-                    android:gravity="center"
-                    android:layout_marginTop="4dp"
+                    android:text="QUESTION:"
+                    android:textSize="30sp"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorGreen"
                     />
 
                 <TextView
-                    android:id="@+id/detailsTxt"
+                    android:id="@+id/questionTitleTxt"
+                    style="@style/title_style"
+                    android:padding="0dp"
+                    android:layout_marginTop="4dp"
+                    tools:text="questionTitleTxt"
+                    />
+
+                <TextView
+                    android:id="@+id/questionBodyTxt"
                     style="@style/details_style"
                     android:padding="0dp"
-                    android:gravity="center"
+                    tools:text="questionTitleTxt"
                     />
+
+                <TextView
+                    style="@style/title_style"
+                    android:padding="0dp"
+                    android:text="ANSWERS:"
+                    android:textSize="30sp"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorGreen"
+                    />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recyclerview"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="#ffffff"
+                    android:padding="4dp"
+                    tools:listitem="@layout/recyclerview_answer_item" />
 
             </LinearLayout>
 
 
-        </LinearLayout>
     </ScrollView>
 
 </RelativeLayout>

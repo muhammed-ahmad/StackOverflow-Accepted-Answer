@@ -12,4 +12,7 @@
     <color name="colorToolbarBackground">#183153</color>
     <color name="colorToolbarText">#ffffff</color>
 
+    <color name="colorGreen">#4CAF50</color>
+
+
 </resources>

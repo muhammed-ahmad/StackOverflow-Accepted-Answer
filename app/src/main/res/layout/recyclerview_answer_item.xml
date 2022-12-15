@@ -21,22 +21,11 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/titleTxt"
-                    style="@style/title_style"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
-                    android:textStyle="bold"
-                    android:textColor="@color/colorToolbarBackground"
-                    tools:text="titleTxt"
-                    />
-
-                <TextView
-                    android:id="@+id/answerTxt"
+                    android:id="@+id/answerBodyTxt"
                     style="@style/details_style"
                     android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
                     android:maxLines="13"
-                    tools:text="answerTxt"
+                    tools:text="title"
                     />
 
             </LinearLayout>

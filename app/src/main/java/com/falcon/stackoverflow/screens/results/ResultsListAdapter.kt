@@ -62,6 +62,7 @@ class ResultsListAdapter (
     fun setList(items: List<RenderedItem>?) {
         main_arrlst = items as MutableList<RenderedItem>
         notifyDataSetChanged()
+
     }
 
 }

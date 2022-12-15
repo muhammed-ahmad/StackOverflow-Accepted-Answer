@@ -27,8 +27,8 @@ import javax.inject.Inject
 class ResultsActivity : BaseActivity() {
 
     val TAG: String = "ResultsActivity"
-    lateinit var adapter: ResultsListAdapter
     lateinit var binding: ActivityResultBinding
+    lateinit var adapter: ResultsListAdapter
 
     @Inject lateinit var resultViewModel: ResultViewModel
     @Inject lateinit var screensNavigator: ScreensNavigator 
@@ -95,13 +95,10 @@ class ResultsActivity : BaseActivity() {
     }
 
     fun search(query: String){
-        resultViewModel.fetch(query, object : ResultViewModel.ResultListener {
-            override fun onSuccess(items: List<RenderedItem>) {
-                Logger.log(TAG, "items: $items")
-                adapter.setList(items)
-            }
+        resultViewModel.fetch(query).observe(this, { renderedItems ->
+            Logger.log(TAG, "items: $renderedItems")
+            adapter.setList(renderedItems)
         })
-
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

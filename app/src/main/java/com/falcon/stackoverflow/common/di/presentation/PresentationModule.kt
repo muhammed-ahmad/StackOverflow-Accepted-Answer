@@ -19,37 +19,37 @@ class PresentationModule {
 
     // view models
     @Provides
-    fun getResultsViewModel(fragmentActivity: AppCompatActivity,
+    fun getResultsViewModel(appCompatActivity: AppCompatActivity,
                             application: Application,
                             fetchResultUseCase: FetchResultUseCase,
                             fetchAcceptedAnswerUseCase: FetchAcceptedAnswerUseCase
                                ): ResultViewModel{
 
         return ViewModelProviders.of(
-                fragmentActivity,
+                appCompatActivity,
                 ResultsViewModelFactory(application, fetchResultUseCase, fetchAcceptedAnswerUseCase)
         ).get(ResultViewModel::class.java)
     }
 
     @Provides
-    fun getResultDetailViewModel(fragmentActivity: AppCompatActivity,
-                         application: Application,
-                         fetchResultDetailUseCase: FetchResultDetailUseCase
+    fun getResultDetailViewModel(appCompatActivity: AppCompatActivity,
+                                 application: Application,
+                                 fetchResultDetailUseCase: FetchResultDetailUseCase
                          ): ResultDetailViewModel {
 
         return ViewModelProviders.of(
-                fragmentActivity,
+                appCompatActivity,
             ResultDetailViewModelFactory(application, fetchResultDetailUseCase)
         ).get(ResultDetailViewModel::class.java)
     }
 
     @Provides
-    fun getSplashViewModel (fragmentActivity: AppCompatActivity,
+    fun getSplashViewModel (appCompatActivity: AppCompatActivity,
                             application: Application
                             ) : SplashViewModel{
 
         return ViewModelProviders.of(
-                fragmentActivity,
+                appCompatActivity,
                 SplashViewModelFactory(application)
         ).get(SplashViewModel::class.java)
     }

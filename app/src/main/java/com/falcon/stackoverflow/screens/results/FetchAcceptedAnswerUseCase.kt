@@ -42,13 +42,4 @@ class FetchAcceptedAnswerUseCase @Inject constructor(
             answerItemNet.score,
         )
 
-//    fun fromNetListToLocal(answerItemNets: List<AnswerItemNet>): List<AnswerItem>{
-//        var answerItems = mutableListOf<AnswerItem>()
-//
-//        for (current in answerItemNets) {
-//            answerItems.add(fromNetToLocal(current))
-//        }
-//        return answerItems
-//    }
-
 }

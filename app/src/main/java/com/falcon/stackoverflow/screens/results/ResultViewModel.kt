@@ -2,6 +2,7 @@ package com.falcon.stackoverflow.screens.results
 
 import android.annotation.SuppressLint
 import android.app.Application
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.falcon.stackoverflow.screens.models.AnswerItem
@@ -18,18 +19,14 @@ class ResultViewModel(
     ) : ViewModel() {
 
     val TAG: String = "ResultViewModel"
-    lateinit var itemsMutableLiveData: MutableLiveData<List<Item>>
-
-    interface ResultListener{
-        fun onSuccess(items: List<RenderedItem>)
-    }
+    lateinit var itemsMutableLiveData: MutableLiveData<List<RenderedItem>>
 
     @SuppressLint("CheckResult")
-    fun fetch(query: String, resultListener: ResultListener) {
+    fun fetch(query: String): LiveData<List<RenderedItem>> {
 
         var _items: List<Item> = mutableListOf()
         if (!::itemsMutableLiveData.isInitialized) {
-            itemsMutableLiveData = MutableLiveData<List<Item>>()
+            itemsMutableLiveData = MutableLiveData<List<RenderedItem>>()
 
             fetchResultUseCase.fetch(query)
                 .subscribeOn(Schedulers.io())
@@ -45,32 +42,13 @@ class ResultViewModel(
                 .subscribe(
                     { answerItems -> Logger.log( TAG, "onNext: " + answerItems.size + " , " + _items.size)
                         var renderedItems: List<RenderedItem> = prepareRenderedItems(_items, answerItems)
-                        resultListener.onSuccess(renderedItems)
+                        itemsMutableLiveData.postValue(renderedItems)
                     },
                     { throwable -> Logger.log( TAG, "onError: " + throwable.localizedMessage) },
                 )
-
         }
+        return itemsMutableLiveData
     }
-
-//    @SuppressLint("CheckResult")
-//    fun fetch(query: String): LiveData<List<Item>> {
-//
-//        if (!::itemsMutableLiveData.isInitialized) {
-//            itemsMutableLiveData = MutableLiveData<List<Item>>()
-//
-//            fetchResultUseCase.fetch(query)
-//                .subscribeOn(Schedulers.io())
-//                .observeOn(AndroidSchedulers.mainThread())
-//                .subscribe( { items -> Logger.log( TAG, "onNext: ")
-//                                             itemsMutableLiveData.setValue(items) },
-//                            { throwable -> Logger.log( TAG, "onError: " + throwable.localizedMessage) },
-//                            { Logger.log( TAG, "onComplete: ") },
-//                            { disposable ->  Logger.log( TAG, "onSubscribe: ") } )
-//
-//        }
-//        return itemsMutableLiveData
-//    }
 
     fun prepareRenderedItems(items: List<Item>, answerItems: List<AnswerItem>) : List<RenderedItem> {
         var renderedItems = mutableListOf<RenderedItem>()
