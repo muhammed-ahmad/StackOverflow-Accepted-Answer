@@ -27,18 +27,20 @@
                 android:orientation="vertical">
 
                 <TextView
+                    android:id="@+id/questionHeaderTxt"
                     style="@style/title_style"
-                    android:padding="0dp"
+                    android:paddingTop="8dp"
                     android:text="QUESTION:"
                     android:textSize="30sp"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/colorGreen"
+                    android:textColor="@color/colorNavy"
+                    android:visibility="invisible"
+                    tools:visibility="visible"
                     />
 
                 <TextView
                     android:id="@+id/questionTitleTxt"
                     style="@style/title_style"
-                    android:padding="0dp"
                     android:layout_marginTop="4dp"
                     tools:text="questionTitleTxt"
                     />
@@ -46,30 +48,38 @@
                 <TextView
                     android:id="@+id/questionBodyTxt"
                     style="@style/details_style"
-                    android:padding="0dp"
                     tools:text="questionTitleTxt"
                     />
 
                 <TextView
+                    android:id="@+id/answerHeaderTxt"
                     style="@style/title_style"
-                    android:padding="0dp"
+                    android:paddingTop="8dp"
                     android:text="ANSWERS:"
                     android:textSize="30sp"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/colorGreen"
+                    android:textColor="@color/colorNavy"
+                    android:visibility="invisible"
+                    tools:visibility="visible"
                     />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recyclerview"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="#ffffff"
                     android:padding="4dp"
                     tools:listitem="@layout/recyclerview_answer_item" />
 
             </LinearLayout>
 
-
     </ScrollView>
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="30dp"
+        />
 
 </RelativeLayout>

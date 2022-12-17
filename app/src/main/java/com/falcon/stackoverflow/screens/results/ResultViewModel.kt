@@ -5,21 +5,26 @@ import android.app.Application
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.falcon.stackoverflow.screens.common.ConnectivityChecker
 import com.falcon.stackoverflow.screens.models.AnswerItem
 import com.falcon.stackoverflow.screens.models.Item
 import com.falcon.stackoverflow.screens.models.RenderedItem
 import com.falcon.stackoverflow.utils.Logger
+import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
 class ResultViewModel(
-        val application: Application,
-        val fetchResultUseCase: FetchResultUseCase,
-        val fetchAcceptedAnswerUseCase: FetchAcceptedAnswerUseCase
+    val application: Application,
+    val connectivityChecker: ConnectivityChecker,
+    val fetchResultUseCase: FetchResultUseCase,
+    val fetchAcceptedAnswerUseCase: FetchAcceptedAnswerUseCase
     ) : ViewModel() {
 
     val TAG: String = "ResultViewModel"
     lateinit var itemsMutableLiveData: MutableLiveData<List<RenderedItem>>
+
+    fun checkConnectivity() : Single<Boolean> = connectivityChecker.checkConnectivity()
 
     @SuppressLint("CheckResult")
     fun fetch(query: String): LiveData<List<RenderedItem>> {

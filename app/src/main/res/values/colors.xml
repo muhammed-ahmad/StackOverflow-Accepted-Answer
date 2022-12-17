@@ -14,5 +14,9 @@
 
     <color name="colorGreen">#4CAF50</color>
 
+    <color name="colorMainBackground">#fafafa</color>
+
+    <color name="colorNavy">#183153</color>
+
 
 </resources>

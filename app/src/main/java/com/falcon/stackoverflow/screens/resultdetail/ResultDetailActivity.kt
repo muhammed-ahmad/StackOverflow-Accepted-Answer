@@ -2,6 +2,7 @@ package com.falcon.stackoverflow.screens.resultdetail
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.falcon.stackoverflow.databinding.ActivityResultDetailBinding
@@ -54,7 +55,13 @@ class ResultDetailActivity : BaseActivity() {
         binding.recyclerview.adapter = adapter
         binding.recyclerview.layoutManager = LinearLayoutManager(this)
 
+
         resultDetailViewModel.getQuestionData(questionId).observe(this, { resultDetail ->
+
+            binding.questionHeaderTxt.visibility = View.VISIBLE
+            binding.answerHeaderTxt.visibility = View.VISIBLE
+            binding.progressBar.visibility = View.INVISIBLE
+
             binding.questionTitleTxt.text = UiUtils.fromHtml(resultDetail.questionItem.title)
             binding.questionBodyTxt.text = UiUtils.fromHtml(resultDetail.questionItem.body)
             adapter.setList(resultDetail.answerItems)

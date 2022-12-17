@@ -1,5 +1,6 @@
 package com.falcon.stackoverflow.screens.results
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -12,16 +13,17 @@ import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.core.content.ContextCompat
-import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.falcon.stackoverflow.R
 import com.falcon.stackoverflow.databinding.ActivityResultBinding
 import com.falcon.stackoverflow.screens.common.BaseActivity
 import com.falcon.stackoverflow.screens.common.ImageLoader
 import com.falcon.stackoverflow.screens.common.ScreensNavigator
-import com.falcon.stackoverflow.screens.models.Item
-import com.falcon.stackoverflow.screens.models.RenderedItem
 import com.falcon.stackoverflow.utils.Logger
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.plugins.RxJavaPlugins
+import io.reactivex.schedulers.Schedulers
+import java.lang.Exception
 import javax.inject.Inject
 
 class ResultsActivity : BaseActivity() {
@@ -53,6 +55,9 @@ class ResultsActivity : BaseActivity() {
         setContentView(binding.root)
         setSupportActionBar(binding.toolbar)
 
+        RxJavaPlugins.setErrorHandler{ e -> { }}
+        checkConnectivity()
+
         adapter = ResultsListAdapter(
                 this,
                 layoutInflator,
@@ -63,6 +68,26 @@ class ResultsActivity : BaseActivity() {
         binding.recyclerview.adapter = adapter
         binding.recyclerview.layoutManager = LinearLayoutManager(this)
 
+    }
+
+    @SuppressLint("CheckResult")
+    private fun checkConnectivity() {
+        resultViewModel.checkConnectivity()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(
+                { isConnected ->
+                    Logger.log(TAG, "onSuccess: ")
+                    //binding.progressBar.visibility = View.INVISIBLE
+                },
+                { error ->
+                    //binding.progressBar.visibility = View.INVISIBLE
+                    val error: String? = error.localizedMessage
+                    Logger.log( TAG,"onFailed: " + error)
+                    binding.errorTxt.visibility = View.INVISIBLE
+                    binding.errorTxt.setText(error)
+                }
+            )
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -95,8 +120,10 @@ class ResultsActivity : BaseActivity() {
     }
 
     fun search(query: String){
+        binding.progressBar.setVisibility(View.VISIBLE)
         resultViewModel.fetch(query).observe(this, { renderedItems ->
             Logger.log(TAG, "items: $renderedItems")
+            binding.progressBar.setVisibility(View.INVISIBLE)
             adapter.setList(renderedItems)
         })
     }
