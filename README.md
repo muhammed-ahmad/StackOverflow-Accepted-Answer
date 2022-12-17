@@ -1,20 +1,15 @@
 # StackOverflow Accepted Answer
-a simple demo app that let u search StackOverflow for specific keyword, then it display a list of questions and its accepted answers
-
-# please note that this project is still under developement
+a simple demo app that let you search StackOverflow for specific keyword, then it display a list of questions and its accepted answers
 
 <br />
 
 # features:
 - uses StackOverflow api to get data.
-- get only questions that has accepted answer
+- get only questions that has accepted answer.
 
 <br />
 
-<!--
 # Screenshots:
-
-<br />
 
 <p float="left">
   <img src="screenshots/1.png" width="30%" />
@@ -23,8 +18,6 @@ a simple demo app that let u search StackOverflow for specific keyword, then it 
 </p>
 
 <br />
-
--->
 
 # Tech Stack
 
@@ -52,16 +45,6 @@ a simple demo app that let u search StackOverflow for specific keyword, then it 
 - SOLID
 
 <br />
-
-<!--
-# TODO
-- add Testing
-    - Unit Tests
-    - Instrumentation Tests
-    - Mockito
-
-<br />
--->
 
 # License & Copyright
 Copyright (c) 2022 **Muhammad-Ahmad**
