@@ -26,17 +26,17 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/questionHeaderTxt"
-                    style="@style/title_style"
-                    android:paddingTop="8dp"
-                    android:text="QUESTION:"
-                    android:textSize="30sp"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/colorNavy"
-                    android:visibility="invisible"
-                    tools:visibility="visible"
-                    />
+<!--                <TextView-->
+<!--                    android:id="@+id/questionHeaderTxt"-->
+<!--                    style="@style/title_style"-->
+<!--                    android:paddingTop="8dp"-->
+<!--                    android:text="QUESTION:"-->
+<!--                    android:textSize="30sp"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:textColor="@color/colorNavy"-->
+<!--                    android:visibility="invisible"-->
+<!--                    tools:visibility="visible"-->
+<!--                    />-->
 
                 <TextView
                     android:id="@+id/questionTitleTxt"
@@ -68,7 +68,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:padding="4dp"
-                    tools:listitem="@layout/recyclerview_answer_item" />
+                    tools:listitem="@layout/recyclerview_answer_item"
+                    />
 
             </LinearLayout>
 

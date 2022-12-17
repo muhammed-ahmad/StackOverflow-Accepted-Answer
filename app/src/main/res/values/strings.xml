@@ -1,5 +1,5 @@
 <resources>
     <string name="app_name">StackOverflow</string>
     <string name="title_result_activity">Results</string>
-    <string name="title_result_detail_activity">Result Detail</string>
+    <string name="title_result_detail_activity">Question Detail</string>
 </resources>

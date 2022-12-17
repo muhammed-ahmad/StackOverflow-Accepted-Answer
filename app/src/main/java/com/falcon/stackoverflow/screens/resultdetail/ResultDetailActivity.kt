@@ -55,10 +55,12 @@ class ResultDetailActivity : BaseActivity() {
         binding.recyclerview.adapter = adapter
         binding.recyclerview.layoutManager = LinearLayoutManager(this)
 
+        //UiUtils.setTypeFace(binding.questionTitleTxt, this)
+        //UiUtils.setTypeFace(binding.questionBodyTxt, this)
 
         resultDetailViewModel.getQuestionData(questionId).observe(this, { resultDetail ->
 
-            binding.questionHeaderTxt.visibility = View.VISIBLE
+            //binding.questionHeaderTxt.visibility = View.VISIBLE
             binding.answerHeaderTxt.visibility = View.VISIBLE
             binding.progressBar.visibility = View.INVISIBLE
 

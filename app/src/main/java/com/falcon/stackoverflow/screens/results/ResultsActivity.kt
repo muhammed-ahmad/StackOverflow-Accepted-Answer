@@ -20,6 +20,7 @@ import com.falcon.stackoverflow.screens.common.BaseActivity
 import com.falcon.stackoverflow.screens.common.ImageLoader
 import com.falcon.stackoverflow.screens.common.ScreensNavigator
 import com.falcon.stackoverflow.utils.Logger
+import com.falcon.stackoverflow.utils.UiUtils
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.plugins.RxJavaPlugins
 import io.reactivex.schedulers.Schedulers
@@ -53,20 +54,34 @@ class ResultsActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityResultBinding.inflate(layoutInflator)
         setContentView(binding.root)
-        setSupportActionBar(binding.toolbar)
 
         RxJavaPlugins.setErrorHandler{ e -> { }}
         checkConnectivity()
 
+        binding.searchBtn.setOnClickListener{
+            val inputStr: String = binding.searchInputEdt.text.toString()
+            Logger.log(TAG , "inputStr: $inputStr")
+            this.currentFocus?.let { view ->
+                val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager
+                imm?.hideSoftInputFromWindow(view.windowToken, 0)
+            }
+            search(inputStr)
+        }
+
         adapter = ResultsListAdapter(
                 this,
                 layoutInflator,
-                imageLoader)
+                imageLoader
+        )
 
         adapter.onItemClicked = { question_id -> screensNavigator.toResultDetailActivity(question_id) }
 
         binding.recyclerview.adapter = adapter
         binding.recyclerview.layoutManager = LinearLayoutManager(this)
+
+        //UiUtils.setTypeFace(binding.titleTxt, this)
+        //UiUtils.setTypeFace(binding.answerTxt, this)
+
 
     }
 
@@ -90,35 +105,6 @@ class ResultsActivity : BaseActivity() {
             )
     }
 
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        menuInflater.inflate(R.menu.menu_main, menu)
-        val myActionMenuItem: MenuItem = menu.findItem( R.id.mnuSearch)
-        val searchView: SearchView = myActionMenuItem.actionView as SearchView
-        val searchIcon: ImageView = searchView.findViewById(R.id.search_button)
-        searchIcon.setImageDrawable(ContextCompat.getDrawable(this,R.drawable.baseline_search_white_24))
-        searchView.maxWidth =Integer.MAX_VALUE
-
-        searchView.isIconified = false
-        searchIcon.visibility = View.VISIBLE
-
-        val closeImgView: ImageView = searchView.findViewById(R.id.search_close_btn)
-        closeImgView.visibility = View.INVISIBLE
-
-        val searchSrcTextView: SearchView.SearchAutoComplete = searchView.findViewById(R.id.search_src_text);
-        searchSrcTextView.setHint("")
-
-        searchIcon.setOnClickListener{
-            Logger.log(TAG , "searchIcon: " + searchView.query.toString())
-            this.currentFocus?.let { view ->
-                val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager
-                imm?.hideSoftInputFromWindow(view.windowToken, 0)
-            }
-            search(searchView.query.toString())
-        }
-
-        return true
-    }
-
     fun search(query: String){
         binding.progressBar.setVisibility(View.VISIBLE)
         resultViewModel.fetch(query).observe(this, { renderedItems ->
@@ -128,12 +114,4 @@ class ResultsActivity : BaseActivity() {
         })
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        val id: Int = item.itemId
-        return super.onOptionsItemSelected(item)
-    }
-
-    override fun onContextItemSelected(item: MenuItem): Boolean {
-        return true 
-    }
 }

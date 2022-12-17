@@ -3,13 +3,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.falcon.stackoverflow.screens.results.CategoriesActivity">
 
-    <item
-        android:id="@+id/mnuSearch"
-        android:orderInCategory="160"
-        android:title="Search"
-        android:icon="@drawable/baseline_search_white_24"
-        app:showAsAction="always"
-        app:actionViewClass="androidx.appcompat.widget.SearchView"
-        />
+<!--    <item-->
+<!--        android:id="@+id/mnuSearch"-->
+<!--        android:orderInCategory="160"-->
+<!--        android:title="Search"-->
+<!--        android:icon="@drawable/baseline_search_white_24"-->
+<!--        app:showAsAction="always"-->
+<!--        app:actionViewClass="androidx.appcompat.widget.SearchView"-->
+<!--        />-->
 
 </menu>

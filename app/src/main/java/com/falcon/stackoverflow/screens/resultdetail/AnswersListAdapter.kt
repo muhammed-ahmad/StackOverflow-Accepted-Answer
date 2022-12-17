@@ -24,6 +24,7 @@ class AnswersListAdapter (
     inner class ModelViewHolder(private val binding: RecyclerviewAnswerItemBinding) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(currentItem: AnswerItem){
+            //UiUtils.setTypeFace(binding.answerBodyTxt, context)
             binding.answerBodyTxt.text = UiUtils.fromHtml(currentItem.body)
         }
 

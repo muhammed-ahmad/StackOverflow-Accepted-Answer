@@ -32,6 +32,9 @@ class ResultsListAdapter (
         var question_id: Long = 0
 
         fun bind(currentItem: RenderedItem){
+            //UiUtils.setTypeFace(binding.titleTxt, context)
+            //UiUtils.setTypeFace(binding.answerTxt, context)
+
             binding.titleTxt.text = currentItem.title
             binding.answerTxt.text = UiUtils.fromHtml(currentItem.answerBody)
             question_id = currentItem.question_id
